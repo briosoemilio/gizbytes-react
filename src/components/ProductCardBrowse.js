@@ -9,11 +9,11 @@ const ProductCardBrowse = ({productProp}) => {
 	console.log(productProp)
 
 
-	const {name, description, price, stocks, _id, imageBase64} = productProp
+	const {productName, description, price, stocks, _id, imageBase64} = productProp
 	return (
 		<Card>
             <Card.Body>
-                <Card.Title>{name}</Card.Title>
+                <Card.Title>{productName}</Card.Title>
                 <Card.Subtitle>Description:</Card.Subtitle>
                 <Card.Text>{description}</Card.Text>
                 <Card.Subtitle>Price:</Card.Subtitle>

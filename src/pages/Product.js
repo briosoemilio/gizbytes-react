@@ -14,6 +14,7 @@ const ContainerStyled = styled.div`
 	align-items: start;
 	justify-content: center;
 	flex-direction:column;
+	width:75vw;
 `
 
 const Info = styled.div`
@@ -33,7 +34,6 @@ const Button = styled.button`
 	color:white;
 	font-size: 24px;
 `
-
 const Product = () => {
 
 	//Construct necessary hooks
@@ -70,9 +70,12 @@ const Product = () => {
 		setTotal(price * quantity)
 		if(quantity < 1) {
 			setQuantity(1)
+		} else if (quantity > stock) {
+			setQuantity(stock)
 		}
 
 	}, [quantity])
+
 
 	// Add to cart Function
 	function addToCart(e) {
@@ -85,8 +88,10 @@ const Product = () => {
 				Authorization: `Bearer ${localStorage.getItem("token")}`
 			},
 			body: JSON.stringify({
-				quantity: quantity,	
 				productName: name,			
+				price: price,	
+				quantity: quantity,	
+				totalAmount: total,	
 			})
 		})
 		.then(res => res.json())
