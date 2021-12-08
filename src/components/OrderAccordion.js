@@ -32,8 +32,8 @@ const OrderAccordion = () => {
 		if (item.isPaid === true) {
 			paidOrders.push(item)
 		}
-	})
-
+	})	
+	
 	return (
 		<Fragment>
 			{isEmpty? 
