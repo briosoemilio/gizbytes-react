@@ -1,4 +1,3 @@
-import {Navigate} from 'react-router-dom'
 import {useEffect, useContext} from 'react'
 import UserContext from '../UserContext'
 import Swal from 'sweetalert2'

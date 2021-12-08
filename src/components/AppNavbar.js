@@ -1,13 +1,10 @@
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import UserContext from '../UserContext'
 import {Fragment, useContext} from 'react'
-
-import { Container, Row, Col } from 'react-grid-system';
 
 export default function AppNavbar() {
 

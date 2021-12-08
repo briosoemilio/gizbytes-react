@@ -1,7 +1,5 @@
 import React from 'react'
-import {Fragment} from 'react'
-import {Card, Button} from 'react-bootstrap'
-import styled from 'styled-components'
+import {Card} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 
 const ProductCardBrowse = ({productProp}) => {

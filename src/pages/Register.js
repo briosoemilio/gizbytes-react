@@ -72,7 +72,6 @@ const Register = () => {
 				lastName: lastName,
 				email: email,
 				password: password1,
-				password: password2,
 				mobileNo: mobileNumber
 			})
 		})

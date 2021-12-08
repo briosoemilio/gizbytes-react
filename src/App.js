@@ -14,6 +14,7 @@ import NotFound from './pages/NotFound'
 import Cart from './pages/Cart'
 import Product from './pages/Product'
 import ProductsPage from './pages/Products'
+import Profile from './pages/Profile'
 
 //import components
 import Navbar from './components/AppNavbar'
@@ -42,20 +43,21 @@ function App() {
     })
     .then(res => res.json())
     .then(data => {
-      console.log(data)
       if (typeof data.id !== "undefined") {
         setUser({
           id: data.id,
           isAdmin: data.isAdmin,
           firstName: data.firstName,
-          lastName: data.lastName
+          lastName: data.lastName,
+          email: data.email,
         })
       } else {
         setUser({
           id: null,
           isAdmin: null,
           firstName: null,
-          lastName: null
+          lastName: null,
+          email: null,
         })
       }
     })
@@ -75,6 +77,7 @@ function App() {
             <Route exact path ="/cart" element = {<Cart/>} />
             <Route exact path ="/products/:productId" element = {<Product/>} />
             <Route exact path ="/products" element = {<ProductsPage/>} />
+            <Route exact path ="/user" element = {<Profile/>} />
             <Route exact path = "*" element = {<NotFound/>} />
           </Routes>
         </Container>

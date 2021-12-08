@@ -1,12 +1,11 @@
 import React from 'react'
-import {Fragment, useState, useEffect, useContext} from 'react'
+import {Fragment, useState, useEffect, } from 'react'
 import ProductCard from '../components/ProductCard'
 import styled from 'styled-components'
 import { Container, Row, Col } from 'react-grid-system';
-import {Form, FormControl} from 'react-bootstrap'
-import UserContext from '../UserContext'
+import {Form} from 'react-bootstrap'
 import Swal from 'sweetalert2'
-import {useParams, useNavigate, Link} from 'react-router-dom'
+import {useParams} from 'react-router-dom'
 
 const ContainerStyled = styled.div`
 	height: 100vh;
@@ -39,10 +38,6 @@ const Product = () => {
 	//Construct necessary hooks
 	const {productId} = useParams()
 
-	const {user} = useContext(UserContext)
-
-	const history = useNavigate()
-
 	const [name, setName] = useState('')
 	const [description, setDescription] = useState('')
 	const [price, setPrice] = useState(0)
@@ -74,7 +69,7 @@ const Product = () => {
 			setQuantity(stock)
 		}
 
-	}, [quantity])
+	}, [quantity, price])
 
 
 	// Add to cart Function
