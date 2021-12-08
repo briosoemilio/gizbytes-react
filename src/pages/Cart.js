@@ -2,6 +2,7 @@ import React from 'react'
 import {Fragment, useState, useEffect, useContext} from 'react'
 import {Table, Button, InputGroup, Form} from 'react-bootstrap'
 import styled from 'styled-components'
+import Swal from 'sweetalert2'
 
 const Container = styled.div`
 	height: 100vh;
@@ -17,8 +18,11 @@ const Cart = () => {
 	const[orders, setOrders] = useState([])
 	const[isEmpty, setIsEmpty] = useState(false)
 	const[totalPrice, setTotalPrice] = useState(0)
-	const[quantity, setQuantity] = useState(0)
+	const[quantity, setQuantity] = useState(0)	
+	const[index, setIndex] = useState(0)
+	const[checked, setChecked] = useState(false)
 
+	let selectedIndex = []
 	let newTotal = 0
 	
 	useEffect(()=> {
@@ -35,29 +39,123 @@ const Cart = () => {
 				setIsEmpty(true)
 			} else {
 				setOrders(data)
+				setIndex(data.length - 1)
 			}
 		})
 	},[])
 
 	useEffect(()=>{
 		orders.map(item => {
-			newTotal = newTotal + (item.price * item.quantity)
-			setTotalPrice(newTotal)
+			if (item.isPaid == false){
+				newTotal = newTotal + (item.price * item.quantity)
+				setTotalPrice(newTotal)	
+			}		
 		})
 	}, [orders])
 
+	// Counter of check box
+	function handleCheckbox(event) {
+		if (selectedIndex.length == 0){
+			selectedIndex.push(event.target.value)
+		} else {
+			let x=0
+			selectedIndex.forEach(index => {
+				if (index == event.target.value) {
+					selectedIndex.splice(x,1)
+				}
+				x++
+			})
+			if (x == selectedIndex.length) {
+				selectedIndex.push(event.target.value)
+			}
+		}
+		
+		console.log(selectedIndex)
+		
+	}
 
+	
 	//Check out Function
 	function checkOut(e) {
 		e.preventDefault();
 		console.log(`I'm checking out`)
+		fetch(`http://localhost:4000/orders/myOrders/checkOut`, {
+			method: 'POST',
+			headers: {
+				'Content-Type' : 'application/json',
+				Authorization: `Bearer ${localStorage.getItem("token")}`
+			},
+			body: JSON.stringify({
+				selectedIndex: selectedIndex,
+			})
+		})
+		.then(res => res.json())
+		.then(data => {
+			console.log(data)
+			if (data !== true) {
+				Swal.fire({
+					title: 'Error',
+					icon: 'error',
+					text: 'Admins cannot check out products'
+				})
+			} else {
+				Swal.fire({
+					title: 'Items checked out successfully',
+					icon: 'success',
+					text: 'Click to view your cart'
+				}).then(redirect => {
+					window.location="/cart"
+				})
+			}
+		})
 	}
 	
 	//Remove Item Function
 	function removeItem(e) {
 		e.preventDefault();
 		console.log(`I'm removing you`)
+		fetch(`http://localhost:4000/orders/myOrders/remove`, {
+			method: 'POST',
+			headers: {
+				'Content-Type' : 'application/json',
+				Authorization: `Bearer ${localStorage.getItem("token")}`
+			},
+			body: JSON.stringify({
+				selectedIndex: selectedIndex,
+			})
+		})
+		.then(res => res.json())
+		.then(data => {
+			console.log(data)
+			if (data !== true) {
+				Swal.fire({
+					title: 'Error',
+					icon: 'error',
+					text: 'Admins cannot check out products'
+				})
+			} else {
+				Swal.fire({
+					title: `You've successfully delete items from your cart.`,
+					icon: 'success',
+					text: 'Click to view your cart'
+				}).then(redirect => {
+					window.location="/cart"
+				})
+			}
+		})
 	}
+
+	//New Quantity Setter
+	function newQuantity(event) {
+		console.log(event.target.value)
+	}
+
+	//Update Cart Function
+	function updateCart(e) {
+		e.preventDefault();
+		console.log('update cart')
+	}
+
 
 	return (
 		<Fragment>
@@ -83,13 +181,24 @@ const Cart = () => {
 						  <tbody>
 						  {orders.map(item => (
 						  	<tr>				  							  
-						  	  <td><Form.Check type="checkbox"/></td>
+						  	  <td>
+						  	  	{(item.isPaid) ? 
+						  	  		<Form.Check type="checkbox" disabled/> :
+						  	  		<Form.Check type="checkbox" name={item.productName} value={orders.indexOf(item)} onChange={(e) => handleCheckbox(e)}/>
+						  	  	}
+						  	  </td>
 						  	  <td>{item.productName}</td>
 						  	  <td>{item.price} PHP</td>
-						  	  <td><Form.Control							
+						  	  <td>
+						  	  	{ (item.isPaid) ?
+						  	  		<Form.Control type="number" defaultValue={item.quantity} disabled/> :
+						  	  		<Form.Control							
 										type="number"
-										value={item.quantity}
-										onChange = {e => setQuantity(e.target.value)}/>
+										name={orders.indexOf(item)}
+										defaultValue={item.quantity}							
+										onChange={(e) => newQuantity(e)}
+									/>
+						  	  	}						  	  	
 							  </td>
 						  	  <td>{item.price * item.quantity} PHP</td>
 						  	  <td>{(item.isPaid)? `Paid` : `Pending Payment`}</td>
@@ -103,10 +212,8 @@ const Cart = () => {
 						</Table>
 						<Fragment>
 							<Button variant="primary" type="submit" onClick={(e) => checkOut(e)} key="1">Check Out</Button>
-							<Button variant="danger" type="submit" onSubmit={(e) => removeItem(e)} key="2" style={{marginLeft: "10px"}}>Remove Item</Button>						
-						</Fragment>
-						<Fragment>
-							
+							<Button variant="danger" type="submit" onClick={(e) => removeItem(e)} key="2" style={{marginLeft: "10px"}}>Remove Item</Button>						
+							<Button variant="warning" type="submit" onClick={(e) => updateCart(e)} key="3" style={{marginLeft: "10px"}}>Update Cart</Button>						
 						</Fragment>
 					</Form>
 				</Fragment>
