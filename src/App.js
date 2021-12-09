@@ -16,6 +16,7 @@ import Product from './pages/Product'
 import ProductsPage from './pages/Products'
 import Profile from './pages/Profile'
 import AdminProducts from './pages/AdminProducts'
+import AdminUpdateProduct from './pages/AdminUpdateProduct'
 
 //import components
 import Navbar from './components/AppNavbar'
@@ -85,6 +86,7 @@ function App() {
             <Route exact path ="/user" element = {<Profile/>} />
             <Route exact path = "*" element = {<NotFound/>} />
             <Route exact path = "/adminProducts" element = {<AdminProducts/>} />
+            <Route exact path ="/adminProducts/:productId" element = {<AdminUpdateProduct/>} />
           </Routes>
         </Container>
         <Footer/>

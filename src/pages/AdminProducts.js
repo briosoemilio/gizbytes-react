@@ -1,7 +1,7 @@
 import React from 'react'
 import {Fragment, useState, useEffect, useContext} from 'react'
 import {Table, Button, FloatingLabel, Form, FormControl, Modal} from 'react-bootstrap'
-import {Navigate} from 'react-router-dom'
+import {Navigate, Link} from 'react-router-dom'
 import styled from 'styled-components'
 import Swal from 'sweetalert2'
 
@@ -77,10 +77,12 @@ const AdminProducts = () => {
 		})
 	}
 
+	//Modal Source Code
+
 	return (
 		(user.isAdmin === false) ? 
 		<Navigate to = "/" /> :
-		<Fragment>
+		<Fragment>		
 			<ContainerMain>
 				<ContainerTop>
 					<FloatingLabel controlId="floatingSelectGrid" label="Sort Products">
@@ -145,10 +147,11 @@ const AdminProducts = () => {
 				  	  	</Form.Select>
 				  	  }</td>
 				  	  <td>
-				  	  	<Button 
-				  	  		variant="secondary">
+				  	  	<Link 
+				  	  		className="btn btn-secondary"
+				  	  		to ={`/adminProducts/${item._id}`}>
 				  	  		Update Product
-				  	  	</Button>
+				  	  	</Link>
 				  	  </td>
 				  	</tr>
 				  ))}

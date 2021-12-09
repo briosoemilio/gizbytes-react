@@ -52,7 +52,6 @@ const Product = () => {
 		fetch(`http://localhost:4000/products/${productId}`)
 		.then(res => res.json())
 		.then(data => {
-			console.log(data)
 			setName(data.productName)
 			setDescription(data.description)
 			setPrice(data.price)
@@ -91,7 +90,6 @@ const Product = () => {
 		})
 		.then(res => res.json())
 		.then(data => {
-			console.log(data)
 			if (data !== true) {
 				Swal.fire({
 					title: 'Add to cart failed!',
