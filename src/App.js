@@ -15,9 +15,11 @@ import Cart from './pages/Cart'
 import Product from './pages/Product'
 import ProductsPage from './pages/Products'
 import Profile from './pages/Profile'
+import AdminProducts from './pages/AdminProducts'
 
 //import components
 import Navbar from './components/AppNavbar'
+import AdminNavbar from './components/AdminNavbar'
 import Footer from './components/Footer'
 
 function App() {
@@ -66,7 +68,10 @@ function App() {
   return (
     <UserProvider value={{user, setUser, unsetUser}} >  
       <Router>
+        { (user.isAdmin) ?
+        <AdminNavbar/> :
         <Navbar/>
+        }
         <Container>
           <Routes>
             <Route exact path ="/" element = {<Home/>} />
@@ -79,6 +84,7 @@ function App() {
             <Route exact path ="/products" element = {<ProductsPage/>} />
             <Route exact path ="/user" element = {<Profile/>} />
             <Route exact path = "*" element = {<NotFound/>} />
+            <Route exact path = "/adminProducts" element = {<AdminProducts/>} />
           </Routes>
         </Container>
         <Footer/>

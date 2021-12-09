@@ -14,7 +14,7 @@ export default function AppNavbar() {
   const { user } = useContext(UserContext)
 
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="light" expand="lg">      
       <Navbar.Brand as={Link} to="/" className="mx-3">
         GizBytes
       </Navbar.Brand>
