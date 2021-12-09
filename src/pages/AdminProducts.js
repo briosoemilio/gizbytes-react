@@ -24,10 +24,6 @@ const ContainerTop = styled.div`
 
 const AdminProducts = () => {
 
-	//to set product information
-	const[productId, setProductId] = useState('')
-	const[isActive, setIsActive] = useState('')
-
 	//to set product list
 	const[products, setProducts] = useState([])
 
@@ -50,18 +46,15 @@ const AdminProducts = () => {
 
 	//update product function
 	function archiveProduct(x, y) {
-		setIsActive(x)
-		setProductId(y)
-		console.log(isActive)
-		console.log(productId)
-		/*fetch(`http://localhost:4000/products/${productId}/archive`, {
+		fetch(`http://localhost:4000/products/archive`, {
 			method: 'POST',
 			headers: {
 				'Content-Type' : 'application/json',
 				Authorization: `Bearer ${localStorage.getItem("token")}`
 			},
 			body: JSON.stringify({
-				isActive: isActive,
+				isActive: x,
+				productId: y,
 			})
 		})
 		.then(res => res.json())
@@ -81,7 +74,7 @@ const AdminProducts = () => {
 					text: 'Something happened.'
 				})
 			}
-		})*/
+		})
 	}
 
 	return (
