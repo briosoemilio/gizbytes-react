@@ -3,6 +3,7 @@ import {Fragment, useState, useEffect, useContext} from 'react'
 import {Table, Button, FloatingLabel, Form, FormControl, Modal} from 'react-bootstrap'
 import {Navigate} from 'react-router-dom'
 import styled from 'styled-components'
+import Swal from 'sweetalert2'
 
 import UserContext from '../UserContext'
 
@@ -23,14 +24,12 @@ const ContainerTop = styled.div`
 
 const AdminProducts = () => {
 
+	//to set product information
+	const[productId, setProductId] = useState('')
+	const[isActive, setIsActive] = useState('')
+
 	//to set product list
 	const[products, setProducts] = useState([])
-
-	//to get specific product for modal
-	const[specProduct, setSpecProduct] = useState(null)
-
-	//to show and hide the modal
-	const [modalShow, setModalShow] = useState(false)
 
 	//To determine if admin or not
 	const {user, setUser} = useContext(UserContext)
@@ -47,31 +46,42 @@ const AdminProducts = () => {
 		.then(data => {
 			setProducts(data)
 		})
-	},[])
+	},[products])
 
-	// Edit Product Modal
-
-	function MyVerticallyCenteredModal(props) {
-	  return (
-	    <Modal
-	      {...props}
-	      size="lg"
-	      aria-labelledby="contained-modal-title-vcenter"
-	      centered
-	    >
-	      <Modal.Header closeButton>
-	        <Modal.Title id="contained-modal-title-vcenter">
-	          Edit Product: 
-	        </Modal.Title>
-	      </Modal.Header>
-	      <Modal.Body>
-	       	
-	      </Modal.Body>
-	      <Modal.Footer>
-	        <Button onClick={props.onHide}>Close</Button>
-	      </Modal.Footer>
-	    </Modal>
-	  );
+	//update product function
+	function archiveProduct(x, y) {
+		setIsActive(x)
+		setProductId(y)
+		console.log(isActive)
+		console.log(productId)
+		/*fetch(`http://localhost:4000/products/${productId}/archive`, {
+			method: 'POST',
+			headers: {
+				'Content-Type' : 'application/json',
+				Authorization: `Bearer ${localStorage.getItem("token")}`
+			},
+			body: JSON.stringify({
+				isActive: isActive,
+			})
+		})
+		.then(res => res.json())
+		.then(data => {
+			if (data === true) {
+				Swal.fire({
+					title: `You've successfully change product status`,
+					icon: 'success',
+					text: 'Click to return to products page'
+				}).then(redirect => {
+					window.location="/adminProducts"
+				})
+			} else {
+				Swal.fire({
+					title: 'Error',
+					icon: 'error',
+					text: 'Something happened.'
+				})
+			}
+		})*/
 	}
 
 	return (
@@ -79,11 +89,6 @@ const AdminProducts = () => {
 		<Navigate to = "/" /> :
 		<Fragment>
 			<ContainerMain>
-				<MyVerticallyCenteredModal
-				  show={modalShow}
-				  onHide={() => setModalShow(false)}
-				/>
-
 				<ContainerTop>
 					<FloatingLabel controlId="floatingSelectGrid" label="Sort Products">
 					      <Form.Select aria-label="Floating label select example">
@@ -105,7 +110,8 @@ const AdminProducts = () => {
 					        <Button variant="outline-success">Search</Button>
 					      </Form>
 				</ContainerTop>
-				
+
+				<Form>				
 				<Table striped bordered hover variant="dark">
 				  <thead>
 				    <tr>
@@ -115,7 +121,7 @@ const AdminProducts = () => {
 				      <th>Stocks</th>
 				      <th>Added</th>
 				      <th>Updated</th>
-				      <th>Status</th>
+				      <th className="col-2">Status</th>
 				      <th></th>
 				    </tr>
 				  </thead>
@@ -126,16 +132,28 @@ const AdminProducts = () => {
 				  	  <td>{item.productName}</td>
 				  	  <td>{item.price}</td>
 				  	  <td>{item.stocks}</td>
-				  	  <td>by: {item.addedBy} on: {item.addedOn}</td>
+				  	  <td>by: {item.addedBy} <br/> on: {item.addedOn}</td>
 				  	  <td>{(item.updatedBy == null) ?
 				  	  	`Not yet updated before.` :
 				  	  	`by: ${item.updatedBy} on: ${item.updatedOn}`
 				  	  }</td>
-				  	  <td>{(item.isActive)? `Active` : `Archived`}</td>
+				  	  <td>{(item.isActive)? 
+				  	  	<Form.Select
+				  	  		type="boolean"
+				  	  		onChange ={e => archiveProduct(e.target.value, item._id)}>
+				  	  	  <option value ='true'>Active</option>
+				  	  	  <option value='false'>Inactive</option>
+				  	  	</Form.Select> :
+				  	  	<Form.Select
+				  	  		type="boolean"
+				  	  		onChange ={e => archiveProduct(e.target.value, item._id)}>
+				  	  	  <option value='false'>Inactive</option>
+				  	  	  <option value='true'>Active</option>
+				  	  	</Form.Select>
+				  	  }</td>
 				  	  <td>
 				  	  	<Button 
-				  	  		variant="secondary"
-				  	  		onClick={()=> setModalShow(true)}>
+				  	  		variant="secondary">
 				  	  		Update Product
 				  	  	</Button>
 				  	  </td>
@@ -143,6 +161,7 @@ const AdminProducts = () => {
 				  ))}
 				  </tbody>
 				</Table>
+				</Form>
 			</ContainerMain>
 		</Fragment>
 	)
