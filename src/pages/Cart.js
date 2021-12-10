@@ -45,7 +45,8 @@ const Cart = () => {
 			if (item.isPaid === false){
 				newTotal = newTotal + (item.price * item.quantity)
 				setTotalPrice(newTotal)	
-			}		
+			}
+			return true		
 		})
 	}, [orders])
 

@@ -44,6 +44,9 @@ const Product = () => {
 	const [stock, setStock] = useState(0)
 	const [quantity, setQuantity] = useState(1)
 	const [total, setTotal] = useState(0)
+	const [image1, setImage1] = useState('')
+	const [image2, setImage2] = useState('')
+
 
 
 	useEffect(() => {
@@ -57,6 +60,8 @@ const Product = () => {
 			setPrice(data.price)
 			setStock(data.stocks)
 			setTotal(data.price)			
+			setImage1(data.productImage1)					
+			setImage2(data.productImage2)					
 		})
 	}, [productId])
 
@@ -70,6 +75,10 @@ const Product = () => {
 
 	}, [quantity, price])
 
+	let props = {
+		image1: image1,
+		image2: image2
+	}
 
 	// Add to cart Function
 	function addToCart(e) {
@@ -119,7 +128,7 @@ const Product = () => {
 					</Row>
 					<Row>
 						<Col sm={8}>
-							<ProductCard/>
+							<ProductCard {...props}/>
 						</Col>
 						<Col sm={4}>
 							<Info>Price: {price} PHP</Info>

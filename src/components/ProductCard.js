@@ -1,11 +1,15 @@
 import React from 'react'
-import {Fragment} from 'react'
+import {Fragment , useState} from 'react'
 import ReactImageMagnify from 'react-image-magnify'
 
 import image1 from '../ProductPhotos/product1/1.jpg'
 import image2 from '../ProductPhotos/product1/1L.jpg'
 
-const ProductCard = () => {	
+const ProductCard = (prop) => {
+
+	
+	console.log(prop.image1)
+
 	return (
 		<Fragment>			
 			<div style = {{width: '400px'}}>
@@ -13,10 +17,12 @@ const ProductCard = () => {
 				    smallImage: {
 				        alt: 'Wristwatch by Ted Baker London',
 				        isFluidWidth: true,
-				        src: image1
+				        src: `http://localhost:4000/${prop.image1}`
+
+
 				    },
 				    largeImage: {
-				        src: image2,
+				        src: `http://localhost:4000/${prop.image2}`,
 				        width: 1600,
 				        height: 1600
 				    }

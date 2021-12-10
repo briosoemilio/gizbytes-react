@@ -7,6 +7,8 @@ import Swal from 'sweetalert2'
 
 import UserContext from '../UserContext'
 
+import axios from "axios";
+
 const ContainerMain = styled.div`
 	height: auto;
 	display: flex;
@@ -23,6 +25,13 @@ const ContainerTop = styled.div`
 `
 
 const AdminProducts = () => {
+
+	//Modal useStates
+	const [show, setShow] = useState(false);
+
+	const handleClose = () => setShow(false);
+	const handleShow = () => setShow(true);
+
 
 	//to set product list
 	const[products, setProducts] = useState([])
@@ -77,6 +86,51 @@ const AdminProducts = () => {
 		})
 	}
 
+	// Form Data
+	const [productName, setProductName] = useState("");
+	const [description, setDescription] = useState("");
+	const [price, setPrice] = useState("");
+	const [productImage1, setProductImage1] = useState("");
+	const [productImage2, setProductImage2] = useState("");
+	const [stocks, setStocks] = useState("");
+	const [brand, setBrand] = useState("");
+
+	const changeOnClick = (e) => {
+	    e.preventDefault();
+
+	    const formData = new FormData();
+	    formData.append("productName", productName);
+	    formData.append("description", description);
+	    formData.append("price", price);
+	    formData.append("stocks", stocks);
+	    formData.append("brand", brand);
+	    formData.append("productImage1", productImage1);
+	    formData.append("productImage2", productImage2);
+
+	    setProductName("");
+	    setDescription("");
+	    setPrice("");
+	    setBrand("");
+	    setStocks(0);
+
+	    axios
+	      .post("http://localhost:4000/products/add", formData, {
+	        headers: {
+	          Authorization: `Bearer ${localStorage.getItem("token")}`,
+	        },
+	      })
+	      .then((res) => res.data)
+	      .then((data) => {
+	        if (data === true) {
+	          alert("Success");
+	        }
+	      })
+	      .catch((err) => {
+	        console.log(err);
+	      });
+	  };
+
+
 	//Modal Source Code
 
 	return (
@@ -95,6 +149,12 @@ const AdminProducts = () => {
 					      </Form.Select>
 					</FloatingLabel>
 
+					<Button variant="primary" onClick={handleShow}>
+					          Add Product
+					</Button>
+
+
+
 					<Form className="d-flex">
 					        <FormControl
 					          type="search"
@@ -112,6 +172,7 @@ const AdminProducts = () => {
 				    <tr>
 				      <th>Product ID</th>
 				      <th>Product Name</th>
+				      <th>Phone Brand</th>
 				      <th>Price</th>
 				      <th>Stocks</th>
 				      <th>Added</th>
@@ -125,6 +186,7 @@ const AdminProducts = () => {
 				  	<tr>
 				  	  <td>{item._id}</td>
 				  	  <td>{item.productName}</td>
+				  	  <td>{item.brand}</td>
 				  	  <td>{item.price}</td>
 				  	  <td>{item.stocks}</td>
 				  	  <td>by: {item.addedBy} <br/> on: {item.addedOn}</td>
@@ -158,6 +220,91 @@ const AdminProducts = () => {
 				  </tbody>
 				</Table>
 				</Form>
+
+				<Modal show={show} onHide={handleClose} animation={false}>
+				          <Modal.Header closeButton>
+				            <Modal.Title>Create New Product</Modal.Title>
+				          </Modal.Header>
+				          <Modal.Body>
+				            <Form onSubmit={changeOnClick} encType="multipart/form-data">
+				              <Form.Group className="py-3">
+				                <Form.Label>Name:</Form.Label>
+				                <Form.Control
+				                  type="text"
+				                  value={productName}
+				                  onChange={(e) => setProductName(e.target.value)}
+				                  required
+				                />
+				              </Form.Group>
+				              <Form.Group className="py-3">
+				                <Form.Label>Description:</Form.Label>
+				                <Form.Control
+				                  type="text"
+				                  value={description}
+				                  onChange={(e) => setDescription(e.target.value)}
+				                  required
+				                />
+				              </Form.Group>
+				              <Form.Group className="py-3">
+				                <Form.Label>Brand:</Form.Label>
+				                <Form.Control
+				                  type="text"
+				                  value={brand}
+				                  onChange={(e) => setBrand(e.target.value)}
+				                  required
+				                />
+				              </Form.Group>
+				              <Form.Group className="py-3">
+				                <Form.Label>Price:</Form.Label>
+				                <Form.Control
+				                  type="number"
+				                  value={price}
+				                  onChange={(e) => setPrice(e.target.value)}
+				                  required
+				                />
+				              </Form.Group>
+				              <Form.Group className="py-3">
+				                <Form.Label>Stocks:</Form.Label>
+				                <Form.Control
+				                  type="number"
+				                  value={stocks}
+				                  onChange={(e) => setStocks(e.target.value)}
+				                  required
+				                />
+				              </Form.Group>
+				              <Form.Group>
+				                <Form.Label>Upload Image1:</Form.Label>
+				                <Form.Control
+				                  type="file"
+				                  name="productImage1"
+				                  className="form-control-file"
+				                  onChange={(e) => setProductImage1(e.target.files[0])}
+				                />
+				              </Form.Group>
+				              <Form.Group>
+				                <Form.Label>Upload Image2:</Form.Label>
+				                <Form.Control
+				                  type="file"
+				                  name="productImage2"
+				                  className="form-control-file"
+				                  onChange={(e) => setProductImage2(e.target.files[0])}
+				                />
+				              </Form.Group>
+				              <Button type="submit" className="btn btn-primary my-4">
+				                Add Product
+				              </Button>
+				            </Form>
+				          </Modal.Body>
+				          <Modal.Footer>
+				            <Button variant="secondary" onClick={handleClose}>
+				              Close
+				            </Button>
+				            <Button variant="primary" onClick={handleClose}>
+				              Save Changes
+				            </Button>
+				          </Modal.Footer>
+				        </Modal>
+
 			</ContainerMain>
 		</Fragment>
 	)
