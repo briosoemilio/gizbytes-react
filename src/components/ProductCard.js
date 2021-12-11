@@ -11,8 +11,14 @@ const ProductCard = (prop) => {
 	console.log(prop.image1)
 
 	return (
-		<Fragment>			
-			<div style = {{width: '400px'}}>
+		<Fragment>	
+			<img
+			  src={`http://localhost:4000/${prop.image1}`}
+			  alt="xb"
+			  id="productImage"
+			 />
+		
+			{/*<div style = {{width: '400px'}}>
 				<ReactImageMagnify {...{
 				    smallImage: {
 				        alt: 'Wristwatch by Ted Baker London',
@@ -27,7 +33,7 @@ const ProductCard = (prop) => {
 				        height: 1600
 				    }
 				}} />
-			</div>
+			</div>*/}
 		</Fragment>
 	)
 }

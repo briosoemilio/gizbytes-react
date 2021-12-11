@@ -88,7 +88,7 @@ const Register = () => {
 				Swal.fire({
 					title: 'Registration successful!',
 					icon: 'success',
-					text: 'Welcome to NOT.A.SCAM. click to login!'
+					text: 'Welcome to GizBytes click to login!'
 				})
 				.then(redirect => {
 					window.location = "/login"

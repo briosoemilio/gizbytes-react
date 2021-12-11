@@ -8,10 +8,18 @@ const ProductCardBrowse = ({productProp}) => {
 
 	
 
-	const {productName, description, price, stocks, _id} = productProp
+	const {productName, description, price, stocks, _id, productImage1, productImage2} = productProp
+	
 	return (
 		<Card>
             <Card.Body>
+            <img
+          		src={`http://localhost:4000/${productImage1}`}
+          		alt="xb"
+          		id="productImage"
+          		style={{width: "180px"}}
+        	/>
+
                 <Card.Title>{productName}</Card.Title>
                 <Card.Subtitle>Description:</Card.Subtitle>
                 <Card.Text>{description}</Card.Text>
