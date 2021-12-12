@@ -12,28 +12,27 @@ const ProductCard = (prop) => {
 
 	return (
 		<Fragment>	
-			<img
+			{/*<img
 			  src={`http://localhost:4000/${prop.image1}`}
 			  alt="xb"
 			  id="productImage"
-			 />
+			 />*/}
 		
-			{/*<div style = {{width: '400px'}}>
+			<div style = {{width: '400px'}}>
 				<ReactImageMagnify {...{
 				    smallImage: {
 				        alt: 'Wristwatch by Ted Baker London',
 				        isFluidWidth: true,
 				        src: `http://localhost:4000/${prop.image1}`
-
-
 				    },
 				    largeImage: {
 				        src: `http://localhost:4000/${prop.image2}`,
 				        width: 1600,
-				        height: 1600
-				    }
+				        height: 1600,
+				    },
+				    enlargedImagePosition: 'over'
 				}} />
-			</div>*/}
+			</div>
 		</Fragment>
 	)
 }
