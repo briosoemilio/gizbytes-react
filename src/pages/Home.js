@@ -1,10 +1,12 @@
 import React from 'react'
+import Banner from "../components/Banner";
+import { Fragment } from "react";
 
 const Home = () => {
 	return (
-		<div>
-			This is Home page
-		</div>
+		<Fragment>
+		    <Banner />;
+		</Fragment>
 	)
 }
 

@@ -22,8 +22,6 @@ export default function AppNavbar() {
             <NavDropdown.Item as={Link} to="/adminProducts" exact>Products</NavDropdown.Item>
             <NavDropdown.Item as={Link} to="/adminOrders" exact>Orders</NavDropdown.Item>
             <NavDropdown.Item as={Link} to="/adminUsers" exact>Users</NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item as={Link} to="/makeNewAdmin" exact>Add New Admin</NavDropdown.Item>
           </NavDropdown>
         </Nav>
         <Nav>

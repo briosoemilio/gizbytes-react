@@ -56,7 +56,7 @@ const Register = () => {
   const [isActive, setIsActive] = useState(false);
 
   //Register Function
-  function registerUser(e) {
+  function registerAdminUser(e) {
     // Prevents page redirection via form submission
     e.preventDefault();
 
@@ -71,7 +71,7 @@ const Register = () => {
         email: email,
         password: password1,
         mobileNo: mobileNumber,
-        joinAdmin: false
+        joinAdmin: true
       }),
     })
       .then((res) => res.json())
@@ -87,7 +87,7 @@ const Register = () => {
           Swal.fire({
             title: "Registration successful!",
             icon: "success",
-            text: "Welcome to Gizbytes. click to login!",
+            text: "Please wait our admins will review your application",
           }).then((redirect) => {
             window.location = "/login";
           });
@@ -129,13 +129,13 @@ const Register = () => {
         <Row>
           <Col sm={12}>
             <h1 className="text-center m-5" id="header">
-              Create an account
+              Join Gizbytes!
             </h1>
           </Col>
         </Row>
         <Row className="justify-content-md-center">
           <Col sm={12} lg={6}>
-            <Form onSubmit={(e) => registerUser(e)}>
+            <Form onSubmit={(e) => registerAdminUser(e)}>
               <Form.Group className="mb-3" controlId="formGroupEmail">
                 <Form.Label id="form-label">First Name*</Form.Label>
                 <Form.Control
