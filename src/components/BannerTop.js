@@ -10,7 +10,7 @@ export default function BannerTop() {
       id="banner-top"
     >
       <Navbar.Brand id="banner-top-text">
-        Free shipping on all orders over ₱2000.
+        Free shipping on all orders over ₱10,000.
       </Navbar.Brand>
     </Navbar>
   );

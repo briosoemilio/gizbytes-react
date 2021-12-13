@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Swal from 'sweetalert2'
 import {Table, Form, Button} from 'react-bootstrap'
 import {useParams} from 'react-router-dom'
+import "../App.css";
 
 const ContainerMain = styled.div`
 	height: auto;
@@ -30,7 +31,7 @@ const AdminUpdateProduct = () => {
 	const [newStock, setNewStock] = useState(0)
 
 	useEffect(() => {
-		fetch(`http://localhost:4000/products/${productId}`)
+		fetch(`https://fathomless-beyond-35679.herokuapp.com/products/${productId}`)
 		.then(res => res.json())
 		.then(data => {
 			setNewName(data.productName)
@@ -62,7 +63,7 @@ const AdminUpdateProduct = () => {
 	function updateProduct(e){
 		e.preventDefault()
 
-		fetch(`http://localhost:4000/products/${productId}/update`, {
+		fetch(`https://fathomless-beyond-35679.herokuapp.com/products/${productId}/update`, {
 			method: 'POST',
 			headers: {
 				'Content-Type' : 'application/json',

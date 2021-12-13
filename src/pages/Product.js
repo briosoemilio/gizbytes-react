@@ -1,38 +1,12 @@
 import React from 'react'
 import {Fragment, useState, useEffect, } from 'react'
 import ProductCard from '../components/ProductCard'
-import styled from 'styled-components'
 import { Container, Row, Col } from 'react-grid-system';
-import {Form} from 'react-bootstrap'
+import {Form, Button} from 'react-bootstrap'
 import Swal from 'sweetalert2'
 import {useParams} from 'react-router-dom'
+import "../App.css";
 
-const ContainerStyled = styled.div`
-	height: 100vh;
-	display: flex;
-	align-items: start;
-	justify-content: center;
-	flex-direction:column;
-	width:75vw;
-`
-
-const Info = styled.div`
-	font-size: 24px;
-`
-
-const InfoQ = styled.div`
-	font-size: 24px;
-	display: flex;
-`
-
-const Button = styled.button`
-	margin-top: 20px;
-	width: 100%;
-	height: 100px;
-	background-color: blue;
-	color:white;
-	font-size: 24px;
-`
 const Product = () => {
 
 	//Construct necessary hooks
@@ -52,7 +26,7 @@ const Product = () => {
 	useEffect(() => {
 		console.log(productId)
 
-		fetch(`http://localhost:4000/products/${productId}`)
+		fetch(`https://fathomless-beyond-35679.herokuapp.com/products/${productId}`)
 		.then(res => res.json())
 		.then(data => {
 			setName(data.productName)
@@ -84,7 +58,7 @@ const Product = () => {
 	function addToCart(e) {
 		e.preventDefault();
 
-		fetch(`http://localhost:4000/orders/${productId}/addtocart`, {
+		fetch(`https://fathomless-beyond-35679.herokuapp.com/orders/${productId}/addtocart`, {
 			method: 'POST',
 			headers: {
 				'Content-Type' : 'application/json',
@@ -119,42 +93,44 @@ const Product = () => {
 
 	return (
 		<Fragment>
-			<ContainerStyled>
 				<Container>
 					<Row>
-						<Col sm={12}>
+						<Col sm={12} className="text-center mt-5">
 							<h1>{name}</h1>
 						</Col>
 					</Row>
 					<Row>
-						<Col sm={8}>
-							<ProductCard {...props}/>
+						<Col sm={10} lg={6}>
+							<div 
+								style={{
+								  display: "flex",
+								  justifyContent: "end",
+								}}>
+								<ProductCard {...props}/>
+							</div>
 						</Col>
-						<Col sm={4}>
-							<Info>Price: {price} PHP</Info>
-							<Info>Stocks Left: {stock}</Info>
-							<InfoQ style={{marginBottom: "20px"}}>
-								<Info>Quantity : </Info>
-								<Form onSubmit={(e) => addToCart(e)}>
-									<Form.Control							
-										type="number"
-										value={quantity}
-										onChange = {e => setQuantity(e.target.value)}/>
-									<Button type='submit'>Add To Cart</Button>
+						<Col sm={10} lg={6} className="text-center">
+							<div id="items-product">
+							  <h1 id="price-productsolo">₱{price}</h1>
+							</div>
+							<h3 id="productsolo">Stocks Left: {stock} </h3>
+							<h3 id="productsolo">Quantity : </h3>
+								<Form onSubmit={(e) => addToCart(e)} className="text-center">
+									<Form.Group>
+										<Form.Control
+											id="qty-form"
+											className="text-center mb-4"
+											type="number"
+											value={quantity}
+											onChange = {e => setQuantity(e.target.value)}/>
+									</Form.Group>
+									<Button id="product-button"	type='submit'>Add To Cart
+									</Button>
 								</Form>
-							</InfoQ>
-							<Info>Total Price:</Info>
-							<h1> {total} PHP</h1>
-							
+								<h3 id="productsolototal">Total Price: ₱{total}</h3>						
 						</Col>
-					</Row>
-					<Row>
-						<Col sm={12}>
-							<h1>See Product Reviews:</h1>
-						</Col>
-					</Row>							
+						</Row>						
 				</Container>
-			</ContainerStyled>
 		</Fragment>
 	)
 }

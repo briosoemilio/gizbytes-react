@@ -4,6 +4,7 @@ import {Table, Button, FloatingLabel, Form, FormControl} from 'react-bootstrap'
 import {Navigate} from 'react-router-dom'
 import styled from 'styled-components'
 import Swal from 'sweetalert2'
+import "../App.css";
 
 import UserContext from '../UserContext'
 
@@ -38,7 +39,7 @@ const AdminUsers = () => {
 	const [searchParam, setSearchParam] = useState('')
 
 	useEffect(()=> {
-		fetch(`http://localhost:4000/users/all`, {
+		fetch(`https://fathomless-beyond-35679.herokuapp.com/users/all`, {
 			method: 'GET',
 			headers: {
 				'Content-Type' : 'application/json',
@@ -54,7 +55,7 @@ const AdminUsers = () => {
 	function searchUsers(e) {
 		e.preventDefault();
 		
-		fetch(`http://localhost:4000/users/specific`, {
+		fetch(`https://fathomless-beyond-35679.herokuapp.com/users/specific`, {
 			method: 'POST',
 			headers: {
 				'Content-Type' : 'application/json',
@@ -74,7 +75,7 @@ const AdminUsers = () => {
 	function agregateUsers(e) {		
 		console.log(e)
 		if (e==1) {
-			fetch(`http://localhost:4000/users/all`, {
+			fetch(`https://fathomless-beyond-35679.herokuapp.com/users/all`, {
 				method: 'GET',
 				headers: {
 					'Content-Type' : 'application/json',
@@ -86,7 +87,7 @@ const AdminUsers = () => {
 				setUsers(data)
 			})
 		} else if (e == 2) {
-			fetch(`http://localhost:4000/users/admins`, {
+			fetch(`https://fathomless-beyond-35679.herokuapp.com/users/admins`, {
 				method: 'GET',
 				headers: {
 					'Content-Type' : 'application/json',
@@ -98,7 +99,7 @@ const AdminUsers = () => {
 				setUsers(data)
 			})
 		} else if (e==3) {
-			fetch(`http://localhost:4000/users/customers`, {
+			fetch(`https://fathomless-beyond-35679.herokuapp.com/users/customers`, {
 				method: 'GET',
 				headers: {
 					'Content-Type' : 'application/json',
@@ -110,7 +111,7 @@ const AdminUsers = () => {
 				setUsers(data)
 			})
 		} else if (e==4) {
-			fetch(`http://localhost:4000/users/pendingAdmins`, {
+			fetch(`https://fathomless-beyond-35679.herokuapp.com/users/pendingAdmins`, {
 				method: 'GET',
 				headers: {
 					'Content-Type' : 'application/json',
@@ -125,7 +126,7 @@ const AdminUsers = () => {
 	}
 
 	function setAdminUser(x) {
-		fetch(`http://localhost:4000/users/setAdminUser`, {
+		fetch(`https://fathomless-beyond-35679.herokuapp.com/users/setAdminUser`, {
 			method: 'POST',
 			headers: {
 				'Content-Type' : 'application/json',

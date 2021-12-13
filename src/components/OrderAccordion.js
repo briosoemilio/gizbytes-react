@@ -1,6 +1,7 @@
 import React from 'react'
 import {Fragment, useEffect, useState} from 'react'
 import Accordion from 'react-bootstrap/Accordion'
+import "../App.css";
 
 
 const OrderAccordion = () => {
@@ -9,7 +10,7 @@ const OrderAccordion = () => {
 
 	// Get paid items
 	useEffect(()=> {
-		fetch(`http://localhost:4000/orders/myOrders`, {
+		fetch(`https://fathomless-beyond-35679.herokuapp.com/orders/myOrders`, {
 			method: 'GET',
 			headers: {
 				'Content-Type' : 'application/json',
@@ -41,7 +42,7 @@ const OrderAccordion = () => {
 					<Accordion>
 						{paidOrders.map(item => (
 							<Accordion.Item>
-							  <Accordion.Header>Order ID: {item._id}</Accordion.Header>
+							  <Accordion.Header id="order-acc-header">Order ID: {item._id}</Accordion.Header>
 							  <Accordion.Body>
 							    <p>Prodcut Name:{item.productName} </p>
 							    <p>Product ID: {item.productId}</p>

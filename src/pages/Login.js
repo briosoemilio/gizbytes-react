@@ -2,44 +2,13 @@ import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { Fragment } from "react";
 import { Navigate } from "react-router-dom";
-// import styled from "styled-components";
+
 import Swal from "sweetalert2";
 import { Container, Row, Col } from "react-grid-system";
 import { Form, Button } from "react-bootstrap";
+import "../App.css";
 
 import UserContext from "../UserContext";
-
-// const ContainerMain = styled.div`
-//   height: 100vh;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-// `;
-
-// const LoginCard = styled.div`
-//   width: 50%;
-//   height: auto;
-//   background-color: rgba(0, 0, 0, 0.3);
-// `;
-
-// const Button1 = styled.button`
-//   width: 40%;
-//   border: none;
-//   padding: 15px 20px;
-//   background-color: blue;
-//   color: white;
-//   cursor: pointer;
-//   margin-bottom: 10;
-// `;
-
-// const Button2 = styled.button`
-//   width: 40%;
-//   border: none;
-//   padding: 15px 20px;
-//   background-color: maroon;
-//   color: white;
-//   margin-bottom: 10;
-// `;
 
 const Login = () => {
   //Function Code
@@ -51,7 +20,7 @@ const Login = () => {
   function authenticate(e) {
     e.preventDefault();
 
-    fetch("http://localhost:4000/users/login", {
+    fetch("https://fathomless-beyond-35679.herokuapp.com/users/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -92,7 +61,7 @@ const Login = () => {
 
   const retrieveUserDetails = (token) => {
     console.log(token);
-    fetch("https://glacial-woodland-05160.herokuapp.com/users/details", {
+    fetch("https://fathomless-beyond-35679.herokuapp.com/users/details", {
       headers: {
         Authorization: `Bearer ${token}`,
       },

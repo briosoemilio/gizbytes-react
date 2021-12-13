@@ -19,9 +19,12 @@ const Left = styled.div`
 const Logo = styled.h1``
 const Desc = styled.p`
 	margin: 20px 0px;
+	text-align: justify;
 `
 const SocialContainer = styled.div`
 	display: flex;
+	align-items: center;
+	justify-content: center;
 `
 const SocialIcon = styled.div`
 	width: 40px;
@@ -73,7 +76,7 @@ const Footer = () => {
 			<Left>
 				<Logo>Gizbytes</Logo>
 				<Desc>
-					Lorem ipsum dolor sit amet, consectetur adipisicing, elit. Officiis suscipit necessitatibus ea ipsam odit ut quisquam doloremque, sed voluptatem ipsum porro explicabo nobis repudiandae perferendis perspiciatis nihil fugiat earum, tenetur?
+					Gizbytes is a mobile phone web shop that is responsible in providing you with the latest updates in mobile phone technology. We provide door to door services and free shipping for purchases worth more than ₱10,000. Follow us on our social media accounts!
 				</Desc>
 				<SocialContainer>
 					<SocialIcon color="3B5999">
@@ -90,11 +93,8 @@ const Footer = () => {
 			<Center>
 				<Title>Useful Links</Title>
 				<List>
-					<ListItem>Home</ListItem>
-					<ListItem>Cart</ListItem>
-					<ListItem>Order Tracking</ListItem>
-					<ListItem>Wishlist</ListItem>
-					<ListItem>Terms</ListItem>
+					<ListItem><a href="/">Home</a></ListItem>
+					<ListItem><a href="/cart">Cart</a></ListItem>
 				</List>
 			</Center>
 			<Right>

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Card, Container, Row, Col, Button, Image } from "react-bootstrap";
+import { Card, Container, Row, Col, Button, } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
+import Swal from 'sweetalert2'
 // import productbanner from "../bannerphotos/product-banner2.png";
 
 const ProductCardBrowse = ({ productProp }) => {
@@ -13,6 +14,41 @@ const ProductCardBrowse = ({ productProp }) => {
 
   function handleClick() {
     navigate(`/products/${_id}`);
+  }
+
+  // Add to cart Function
+  function addToCart(e) {
+    e.preventDefault();
+
+    fetch(`https://fathomless-beyond-35679.herokuapp.com/orders/${_id}/addtocart`, {
+      method: 'POST',
+      headers: {
+        'Content-Type' : 'application/json',
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      },
+      body: JSON.stringify({
+        productName: productName,      
+        price: price, 
+        quantity: 1, 
+        totalAmount: price, 
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data !== true) {
+        Swal.fire({
+          title: 'Add to cart failed!',
+          icon: 'error',
+          text: 'Login first before adding to cart'
+        })
+      } else {
+        Swal.fire({
+          title: 'Item added to cart successfully!',
+          icon: 'success',
+          text: 'Click to view your cart'
+        })
+      }
+    })
   }
 
   return (
@@ -32,15 +68,15 @@ const ProductCardBrowse = ({ productProp }) => {
                   onClick={handleClick}
                   variant="top"
                   id="image-product"
-                  src={`http://localhost:4000/${productImage1}`}
+                  src={`https://fathomless-beyond-35679.herokuapp.com/${productImage1}`}
                   alt="No Image"
-                  fluid
-                />
+                  fluid/>
                 {isHovered && (
-                  <Button id="hover-button" className="py-2 px-4">
+                  <Button id="hover-button" className="py-2 px-4"
+                    onClick={e => addToCart(e)}>
                     Add to cart
                   </Button>
-                )}
+                )}       
               </div>
               <Card.Title id="title-product" className="my-4">
                 {productName}

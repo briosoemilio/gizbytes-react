@@ -13,19 +13,19 @@ export default function AppNavbar() {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
-      <Navbar.Brand as={Link} to="/" exact>GizBytes</Navbar.Brand>
+      <Navbar.Brand as={Link} to="/" exact id="brand-name" className="mx-5">GizBytes</Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="me-auto">
-          <Navbar.Text className="justify-content-center mx-5">Hello Admin: {user.firstName} {user.lastName} welcome back master. </Navbar.Text>
-          <NavDropdown title="Admin Features" id="collasible-nav-dropdown">
+          <Navbar.Text className="mx-5" id="admin-nav-items">Hello Admin: {user.firstName} {user.lastName} </Navbar.Text>
+          <NavDropdown title="Admin Features" id="collasible-nav-dropdown" className="mx-5">
             <NavDropdown.Item as={Link} to="/adminProducts" exact>Products</NavDropdown.Item>
             <NavDropdown.Item as={Link} to="/adminOrders" exact>Orders</NavDropdown.Item>
             <NavDropdown.Item as={Link} to="/adminUsers" exact>Users</NavDropdown.Item>
           </NavDropdown>
         </Nav>
         <Nav>
-          <Nav.Link as={Link} to="/logout" exact>Logout</Nav.Link>
+          <Nav.Link as={Link} to="/logout" exact id="admin-nav-items" className="mx-5">Logout</Nav.Link>
         </Nav>
       </Navbar.Collapse>
       </Container>

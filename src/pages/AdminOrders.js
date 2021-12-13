@@ -3,6 +3,7 @@ import {Fragment, useState, useEffect, useContext} from 'react'
 import {Table, Button, FloatingLabel, Form, FormControl} from 'react-bootstrap'
 import {Navigate} from 'react-router-dom'
 import styled from 'styled-components'
+import "../App.css";
 
 import UserContext from '../UserContext'
 
@@ -34,7 +35,7 @@ const AdminProducts = () => {
 	const [searchParam, setSearchParam] = useState('')
 
 	useEffect(()=>{
-		fetch(`http://localhost:4000/orders/allOrders`, {
+		fetch(`https://fathomless-beyond-35679.herokuapp.com/orders/allOrders`, {
 			method: 'GET',
 			headers: {
 				'Content-Type' : 'application/json',
@@ -50,7 +51,7 @@ const AdminProducts = () => {
 	function agregateOrders(e) {		
 		console.log(e)
 		if (e==1) {
-			fetch(`http://localhost:4000/orders/allOrders`, {
+			fetch(`https://fathomless-beyond-35679.herokuapp.com/orders/allOrders`, {
 				method: 'GET',
 				headers: {
 					'Content-Type' : 'application/json',
@@ -62,7 +63,7 @@ const AdminProducts = () => {
 				setOrders(data)
 			})
 		} else if (e == 2) {
-			fetch(`http://localhost:4000/orders/allOrders/pending`, {
+			fetch(`https://fathomless-beyond-35679.herokuapp.com/orders/allOrders/pending`, {
 				method: 'GET',
 				headers: {
 					'Content-Type' : 'application/json',
@@ -74,7 +75,7 @@ const AdminProducts = () => {
 				setOrders(data)
 			})
 		} else if (e==3) {
-			fetch(`http://localhost:4000/orders/allOrders/paid`, {
+			fetch(`https://fathomless-beyond-35679.herokuapp.com/orders/allOrders/paid`, {
 				method: 'GET',
 				headers: {
 					'Content-Type' : 'application/json',
@@ -91,7 +92,7 @@ const AdminProducts = () => {
 	function searchOrders(e) {
 		e.preventDefault();
 		
-		fetch(`http://localhost:4000/orders/allOrders/specific`, {
+		fetch(`https://fathomless-beyond-35679.herokuapp.com/orders/allOrders/specific`, {
 			method: 'POST',
 			headers: {
 				'Content-Type' : 'application/json',

@@ -1,26 +1,18 @@
-import React from 'react'
+/*import React from 'react'
 import {Fragment, useEffect, useState} from 'react'
 import { Container, Row, Col } from 'react-grid-system';
-import ProductCard from '../components/ProductCardBrowse'
 import "../App.css";
 
-const ProductsPage = () => {
-
+const HotProducts = () => {
+	const[hotProductIds, setHotProductIds] = useState([])	
 	const[products, setProducts] = useState([])
 
 	useEffect(() => {
-		fetch('https://fathomless-beyond-35679.herokuapp.com/products/all')
+		fetch('https://fathomless-beyond-35679.herokuapp.com/orders/hotOrders')
 		.then(res => res.json())
 		.then(data => {
-			console.log(data)
-
-		setProducts(data.map(product => {
-			console.log(product)
-			return (
-				<ProductCard key = {product.id} productProp = {product} />
-			)
-		}))
-
+			let sliced = data.slice(0,8)
+			setHotProductIds(sliced)
 		})
 	}, [])
 
@@ -37,4 +29,4 @@ const ProductsPage = () => {
 	)
 }
 
-export default ProductsPage
+export default HotProducts*/
